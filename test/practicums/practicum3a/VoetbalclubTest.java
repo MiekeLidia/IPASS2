@@ -1,35 +1,66 @@
 package practicums.practicum3a;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import week1.les2.practicum2b.Voetbalclub;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class VoetbalclubTest {
+    private Voetbalclub club;
+
+    @BeforeEach
+    public void init() {
+        club = new Voetbalclub("AFCA");
+    }
+
+    @Test
+    public void testClubnaamMagNietLeegZijn() {
+        Voetbalclub club2 = new Voetbalclub("");
+        assertEquals(club2.getNaam(), "FC");
+    }
 
 
     @Test
-    //Eis: als de clubnaam null of leeg ("") is, moet de naam "FC" gebruikt worden.
-    void standaardFC(){
-        Voetbalclub test = new Voetbalclub("");
-        System.out.println(test); //werkt niet, geen fc
-        //Voetbalclub test3 = new Voetbalclub(); WERKT NIET net null
-        //System.out.println(test3);
-
+    public void testGewonnenWedstrijd() {
+        club.verwerkResultaat('w');
+        assertEquals(1, club.aantalGespeeld());
+        assertEquals(3, club.aantalPunten());
+        assertTrue(club.toString().contains("1 1 0 0 3"));
     }
+
     @Test
-    //Eis: het verwerken van de resultaten ‘w’, ‘g’ en ‘v’ levert respectievelijk 3, 1 en 0 punten op.
-        //Foutieve invoer mag het puntensaldo en totaalaantal gespeelde wedstrijden niet beïnvloeden!
-    //Eis: het verwerken van de resultaten ‘w’, ‘g’ en ‘v’ levert respectievelijk 3, 1 en 0 punten op,
-        // en is zichtbaar in de stringrepresentatie van de toString-methode.
-    void geenWGV(){
-        Voetbalclub test2 = new Voetbalclub("test2");
-        test2.verwerkResultaat('h');
-        test2.verwerkResultaat('g');
-        test2.verwerkResultaat('w');
-        System.out.println("juiste uitvoer = 2 1 0 4\ntest uivoer: " );
-        System.out.println(test2);
+    public void testGelijkeWedstrijd() {
+        club.verwerkResultaat('g');
+        assertEquals(1, club.aantalGespeeld());
+        assertEquals(1, club.aantalPunten());
+        assertTrue(club.toString().contains("1 0 0 1 1"));
     }
 
+    @Test
+    public void testVerlorenWedstrijd() {
+        club.verwerkResultaat('v');
+        assertEquals(1, club.aantalGespeeld());
+        assertEquals(0, club.aantalPunten());
+        assertTrue(club.toString().contains("1 0 1 0 0"));
+    }
+
+    @Test
+    public void testFoutiveInvoer() {
+        club.verwerkResultaat('q');
+        assertEquals(0, club.aantalGespeeld());
+        assertEquals(0, club.aantalPunten());
+        assertTrue(club.toString().contains("0 0 0 0 0"));
+    }
+
+    @Test
+    public void testHerhaaldelijkVerwerking() {
+        club.verwerkResultaat('g');
+        club.verwerkResultaat('w');
+        club.verwerkResultaat('v');
+        club.verwerkResultaat('g');
+        club.verwerkResultaat('g');
+        assertEquals(5, club.aantalGespeeld());
+        assertEquals(6, club.aantalPunten());
+        assertTrue(club.toString().contains("5 1 1 3 6"));
+    }
 
 }
