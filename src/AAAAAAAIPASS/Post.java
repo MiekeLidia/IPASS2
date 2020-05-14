@@ -1,6 +1,5 @@
 package AAAAAAAIPASS;
 
-import practicums.practicum6a.Game;
 
 import java.util.ArrayList;
 
