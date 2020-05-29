@@ -94,6 +94,12 @@ Bekijk de afbeelding in de README en probeer dit hieronder na te bouwen, gebruik
         // voeg het fragment toe aan de ul van de todo-list in de dom
         const ELEMENT = document.querySelector('.posts');
         ELEMENT.appendChild(FRAGMENT);
+
+        // fetch("/rest/storylines/artiest3", {method: "POST", body: {title: "hoi", post: "kek"}})
+        //     .then(response => response.json())
+        //     .then(function (myJson) {
+        //         console.log(myJson);
+        //     });
     }
 
 
@@ -112,4 +118,11 @@ Bekijk de afbeelding in de README en probeer dit hieronder na te bouwen, gebruik
     buttonElement.addEventListener('click', function (event) {
         addPostHandler();
     });
+    const inputElement = document.querySelector('.postInhoud');
+    inputElement.addEventListener('keydown', (event) => {
+        const keyName = event.key;
+        if (keyName === 'Enter') {
+            addPostHandler();
+        }
+    }, false);
 </script>
