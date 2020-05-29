@@ -1,0 +1,108 @@
+<!--
+Assignment 12 (HTML Semantics (klassikaal)):
+
+Bekijk de afbeelding in de README en probeer dit hieronder na te bouwen, gebruik semantische elementen waar nodig.
+-->
+<!-- Make changes to the code below -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style>
+        img {
+            height: 200px ;
+        }
+    </style>
+    <title>Artiest1</title>
+</head>
+<body>
+
+
+<!--<section class="mainRij">-->
+<!--    <div class="icon"><i class="fas fa-book"></i></div>-->
+<!--    <div class="ingelogt"> <i class="fas fa-user"></i>GebruikerIngelogt</div>-->
+<!--</section>-->
+
+<ul class="mainrij">
+    <li><a href="#home"><i class="fas fa-book"></i></a></li>
+    <li style="float:right"><a class="active" href="#about"><div class="ingelogt"> <i class="fas fa-user"></i> Gebruiker Ingelogd</div></a></li>
+</ul>
+
+<hr>
+
+<section class="info">
+    <h1 class="artiest">Artiest1</h1>
+    <div class="aantvolgers"><p>Volgers</p><p>65</p></div>
+    <div class="aantposts"><p>Posts</p><p>7</p></div>
+    <div class="aantvolgend"><p>Volgend</p><p>32</p></div>
+    <!--        <button class="nieuwe_post"><i class="fas fa-plus"></i></button>-->
+</section>
+
+<section class="posts">
+    <section class="maakPost">
+        <form id="POSTpost">
+            <input placeholder="Titel" type="text" class="titel" name="titel"/>
+            <input placeholder="Dit is een voorbeeld van een post" type="text" class="postInhoud" id="post" name="post"/>
+            <button id="maakPost" class="button">post</button>
+        </form>
+
+    </section>
+    <section class="post">
+        <div class="titel"><h3>Titel</h3>
+            <div class="nested">With lots of contentith lots of conith lots of conith lots of conith lots of conith lots of conith lots of conith lots of coni
+                <img style="width: auto" class="fit-picture" src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg" alt="kitty">
+            </div>
+            <button><i class="far fa-comments"></i></button>
+        </div>
+    </section>
+</section>
+<template class="postTemplate">
+    <div class="titel"><h3>Titel</h3>
+        <div class="nested">With lots of contentith lots of conith lots of conith lots of conith lots of conith lots of conith lots of conith lots of coni
+            <img style="width: auto" class="fit-picture" src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg" alt="kitty">
+        </div>
+        <button><i class="far fa-comments"></i></button>
+    </div>
+</template>
+</body>
+</html>
+
+<script>
+    function addPostFunctie(titel, postInhoud) {
+        // maak kopie van html post template
+        const TEMPLATE = document.querySelector('.postTemplate');
+        const CLONE = TEMPLATE.content.cloneNode(true);
+
+        // vul de kopie met de data van de parameters
+        // CLONE.querySelector(".TitelTemplate").textContent = titel;
+        // CLONE.querySelector("#PostInhoudTemplate").textContent = postInhoud;
+
+        // maak DOM fragment aan en voe de geclonde todoitem template toe
+        const FRAGMENT = document.createDocumentFragment();
+        // FRAGMENT.appendChild(CLONE);
+        // voeg het fragment toe aan de ul van de todo-list in de dom
+        const ELEMENT = document.querySelector('.posts');
+        ELEMENT.appendChild(FRAGMENT);
+    }
+
+
+        function addPostHandler() {
+            var newTitel = document.querySelector(".titel").value;
+            var newPostInhoud = document.querySelector(".postInhoud").value;
+            if (newTitel!=="" && newPostInhoud!==""){
+                addPostFunctie(newTitel,newPostInhoud)
+            }
+            document.getElementById("new-task-input").value = "";
+        }
+
+
+
+
+    // knop lisner
+    const buttonElement = document.querySelector('.button');
+    buttonElement.addEventListener('click', function (event) {
+        addPostHandler();
+    });
+</script>
